@@ -9,11 +9,13 @@ package fatec.poo.model;
  *
  * @author lucas
  */
-public class Medicacao {
-    private String nome, dosagem;
+public class Medicacao{
+    private String nome, dosagem, descricao;
     private int qtdeDias;
-    
-    //Falta o metodo construtor
+
+    public Medicacao(String descricao) {
+        this.descricao = descricao;
+    }
 
     public void setDosagem(String dosagem) {
         this.dosagem = dosagem;

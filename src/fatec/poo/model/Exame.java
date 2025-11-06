@@ -18,7 +18,7 @@ public class Exame {
     public Exame(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
-        consulta.addExame(this();
+        consulta.addExame(this);
     }
 
     public void setData(String data) {
