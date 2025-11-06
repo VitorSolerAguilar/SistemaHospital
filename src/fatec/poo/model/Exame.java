@@ -10,9 +10,11 @@ package fatec.poo.model;
  * @author lucas
  */
 public class Exame {
+
     private int codigo;
     private String descricao, data, horario;
     private double valor;
+
     private Consulta consulta;
 
     public Exame(int codigo, String descricao) {
@@ -31,6 +33,10 @@ public class Exame {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public void setConsulta(Consulta consulta) {
+        this.consulta = consulta;
     }
 
     public int getCodigo() {
@@ -52,7 +58,4 @@ public class Exame {
     public double getValor() {
         return valor;
     }
-    
-    
-    
 }

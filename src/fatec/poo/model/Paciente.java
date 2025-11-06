@@ -7,6 +7,7 @@ package fatec.poo.model;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 /**
  *
@@ -17,6 +18,8 @@ public class Paciente extends Pessoa {
     private LocalDate dataNascimento;
     private double altura;
     private double peso;
+
+    private List<Consulta> consultas;
 
     public Paciente(LocalDate dataNascimento, String cpf, String nome) {
         super(cpf, nome);
