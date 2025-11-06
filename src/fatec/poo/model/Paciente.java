@@ -47,8 +47,8 @@ public class Paciente extends Pessoa {
         return peso / Math.pow(altura, 2);
     }
 
-    public int calcIdade(LocalDate dataAtual) {
-        return Period.between(this.dataNascimento, dataAtual).getYears();
+    public void calcIdade(LocalDate dataAtual) {
+        int idade = dataAtual.getYear() - dataNascimento.getYear();
     }
 
 }
