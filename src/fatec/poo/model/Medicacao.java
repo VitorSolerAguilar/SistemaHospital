@@ -10,5 +10,28 @@ package fatec.poo.model;
  * @author lucas
  */
 public class Medicacao {
+    private String nome, dosagem;
+    private int qtdeDias;
     
+    //Falta o metodo construtor
+
+    public void setDosagem(String dosagem) {
+        this.dosagem = dosagem;
+    }
+
+    public void setQtdeDias(int qtdeDias) {
+        this.qtdeDias = qtdeDias;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDosagem() {
+        return dosagem;
+    }
+
+    public int getQtdeDias() {
+        return qtdeDias;
+    }
 }
