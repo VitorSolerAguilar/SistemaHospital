@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * @author lucas
  */
 public class Medico extends Pessoa{
-    private String crm, especialidade;
+    private String crm;
+    private String especialidade;
     private ArrayList<Consulta> consultas = new ArrayList<>();
 
     public Medico(String cpf, String nome, String crm, String especialidade) {

@@ -10,11 +10,12 @@ package fatec.poo.model;
  * @author lucas
  */
 public class Medicacao{
-    private String nome, dosagem, descricao;
+    private String nome;
+    private String dosagem;
     private int qtdeDias;
     private Consulta consulta;
 
-    public Medicacao(String descricao) {
+    public Medicacao(String nome) {
         this.nome = nome;
     }
 

@@ -12,7 +12,9 @@ package fatec.poo.model;
 public class Exame {
 
     private int codigo;
-    private String descricao, data, horario;
+    private String descricao;
+    private String data;
+    private String horario;
     private double valor;
 
     private Consulta consulta;
