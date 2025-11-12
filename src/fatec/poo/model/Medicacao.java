@@ -12,9 +12,10 @@ package fatec.poo.model;
 public class Medicacao{
     private String nome, dosagem, descricao;
     private int qtdeDias;
+    private Consulta consulta;
 
     public Medicacao(String descricao) {
-        this.descricao = descricao;
+        this.nome = nome;
     }
 
     public void setDosagem(String dosagem) {
@@ -36,4 +37,9 @@ public class Medicacao{
     public int getQtdeDias() {
         return qtdeDias;
     }
+    
+    public void setConsulta(Consulta consulta) {
+    this.consulta = consulta;
+    consulta.addMedicacoes(this);
+}
 }
