@@ -7,6 +7,7 @@ package fatec.poo.model;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class Paciente extends Pessoa {
     private double altura;
     private double peso;
 
-    private List<Consulta> consultas;
+    private List<Consulta> consultas = new ArrayList<>();
 
     public Paciente(LocalDate dataNascimento, String cpf, String nome) {
         super(cpf, nome);
@@ -46,12 +47,16 @@ public class Paciente extends Pessoa {
         return peso;
     }
 
+    public void addConsulta(Consulta c){
+        consultas.add(c);
+    }
+    
     public double calcIMC() {
         return peso / Math.pow(altura, 2);
     }
 
-    public void calcIdade(LocalDate dataAtual) {
-        int idade = dataAtual.getYear() - dataNascimento.getYear();
+    public int calcIdade(LocalDate dataAtual) {
+        return Period.between(dataNascimento, dataAtual).getYears();
     }
 
 }

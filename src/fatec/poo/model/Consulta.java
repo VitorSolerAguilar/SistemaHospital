@@ -5,6 +5,7 @@
  */
 package fatec.poo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,8 +19,9 @@ public class Consulta {
     private double valor;
 
     private Medico medico;
-    private List<Medicacao> medicacoes;
-    private List<Exame> exames;
+    private Paciente paciente;
+    private List<Medicacao> medicacoes = new ArrayList<>();
+    private List<Exame> exames = new ArrayList<>();
 
     public Consulta(int codigo, String data) {
         this.codigo = codigo;
@@ -28,6 +30,10 @@ public class Consulta {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     public void setMedico(Medico medico) {
@@ -45,6 +51,10 @@ public class Consulta {
     public int getCodigo() {
         return codigo;
     }
+        
+    public Paciente getPaciente() {
+        return paciente;
+    }
 
     public String getData() {
         return data;
@@ -55,6 +65,10 @@ public class Consulta {
     }
 
     public double calcValorTotalPagar() {
-        return 0;
+        double total = valor;
+        for(Exame e : exames){
+            total += e.getValor();
+        }
+        return total;
     }
 }
