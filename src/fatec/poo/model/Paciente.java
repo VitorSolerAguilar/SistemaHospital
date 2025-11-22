@@ -22,7 +22,7 @@ public class Paciente extends Pessoa {
 
     private List<Consulta> consultas = new ArrayList<>();
 
-    public Paciente(String cpf, String nome, LocalDate dataNascimento) {
+    public Paciente(LocalDate dataNascimento, String cpf, String nome) {
         super(cpf, nome);
         this.dataNascimento = dataNascimento;
     }
@@ -49,7 +49,6 @@ public class Paciente extends Pessoa {
 
     public void addConsulta(Consulta c){
         consultas.add(c);
-        c.setPaciente(this);
     }
     
     public double calcIMC() {

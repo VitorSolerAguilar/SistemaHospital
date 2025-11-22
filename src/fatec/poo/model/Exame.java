@@ -12,9 +12,7 @@ package fatec.poo.model;
 public class Exame {
 
     private int codigo;
-    private String descricao;
-    private String data;
-    private String horario;
+    private String descricao, data, horario;
     private double valor;
 
     private Consulta consulta;
@@ -22,6 +20,7 @@ public class Exame {
     public Exame(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
+        consulta.addExame(this);
     }
 
     public void setData(String data) {
@@ -38,7 +37,6 @@ public class Exame {
 
     public void setConsulta(Consulta consulta) {
         this.consulta = consulta;
-        consulta.addExame(this);
     }
 
     public int getCodigo() {
