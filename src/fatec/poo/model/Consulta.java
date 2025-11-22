@@ -1,25 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package fatec.poo.model;
+/* * To change this license header, choose License Headers in Project Properties. * To change this template file, choose Tools | Templates * and open the template in the editor. */ package fatec.poo.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author vitor
+ * * * @author vitor
  */
 public class Consulta {
 
     private int codigo;
     private String data;
     private double valor;
-
     private Medico medico;
-    private Paciente paciente;
     private List<Medicacao> medicacoes = new ArrayList<>();
     private List<Exame> exames = new ArrayList<>();
 
@@ -30,10 +22,6 @@ public class Consulta {
 
     public void setValor(double valor) {
         this.valor = valor;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
     }
 
     public void setMedico(Medico medico) {
@@ -51,10 +39,6 @@ public class Consulta {
     public int getCodigo() {
         return codigo;
     }
-        
-    public Paciente getPaciente() {
-        return paciente;
-    }
 
     public String getData() {
         return data;
@@ -64,9 +48,13 @@ public class Consulta {
         return valor;
     }
 
+    public Medico getMedico() {
+        return medico;
+    }
+
     public double calcValorTotalPagar() {
         double total = valor;
-        for(Exame e : exames){
+        for (Exame e : exames) {
             total += e.getValor();
         }
         return total;

@@ -35,8 +35,8 @@ public class Paciente extends Pessoa {
         this.peso = peso;
     }
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
+    public String getDataNascimento() {
+        return dataNascimento.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     public double getAltura() {
@@ -47,10 +47,10 @@ public class Paciente extends Pessoa {
         return peso;
     }
 
-    public void addConsulta(Consulta c){
+    public void addConsulta(Consulta c) {
         consultas.add(c);
     }
-    
+
     public double calcIMC() {
         return peso / Math.pow(altura, 2);
     }

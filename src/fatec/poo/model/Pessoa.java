@@ -1,8 +1,7 @@
 package fatec.poo.model;
 
 /**
- *
- * @author vitor
+ * * * @author vitor
  */
 public class Pessoa {
 

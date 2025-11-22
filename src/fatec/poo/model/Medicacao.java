@@ -9,8 +9,11 @@ package fatec.poo.model;
  *
  * @author lucas
  */
-public class Medicacao{
-    private String nome, dosagem, descricao;
+public class Medicacao {
+
+    private String nome;
+    private String dosagem;
+    private String descricao;
     private int qtdeDias;
 
     public Medicacao(String descricao) {
@@ -36,4 +39,9 @@ public class Medicacao{
     public int getQtdeDias() {
         return qtdeDias;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
 }
