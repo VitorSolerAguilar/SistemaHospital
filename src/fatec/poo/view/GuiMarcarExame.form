@@ -45,7 +45,7 @@
                                   <Component id="ftxtData" alignment="0" pref="164" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPesquisaCodigoConsulta" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="24" max="32767" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -92,7 +92,7 @@
                   <Component id="txtCodigoConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtMeedico" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPesquisaCodigoConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -225,7 +225,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtCodigo">
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="btnPesquisaCodigoConsulta">
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
       </Properties>

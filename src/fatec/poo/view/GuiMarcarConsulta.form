@@ -47,8 +47,8 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnPesquisaCpfMedico" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnPesquisaCpfPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnConsultarCpfMedico" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnConsultartnPesquisaCpfPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -104,11 +104,11 @@
                       <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="txtAvisoMedico" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnPesquisaCpfMedico" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnConsultarCpfMedico" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnPesquisaCpfPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnConsultartnPesquisaCpfPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtAvisoPaciente" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -203,10 +203,13 @@
         <Property name="text" type="java.lang.String" value="Alterar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnPesquisaCpfMedico">
+    <Component class="javax.swing.JButton" name="btnConsultarCpfMedico">
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsultarCpfMedicoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnExcluir">
       <Properties>
@@ -225,7 +228,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnPesquisaCpfPaciente">
+    <Component class="javax.swing.JButton" name="btnConsultartnPesquisaCpfPaciente">
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
       </Properties>

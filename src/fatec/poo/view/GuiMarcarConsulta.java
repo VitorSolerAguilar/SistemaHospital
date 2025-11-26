@@ -41,10 +41,10 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
         txtValor = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JTextField();
         btnAlterar = new javax.swing.JButton();
-        btnPesquisaCpfMedico = new javax.swing.JButton();
+        btnConsultarCpfMedico = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         txtAvisoMedico = new javax.swing.JTextField();
-        btnPesquisaCpfPaciente = new javax.swing.JButton();
+        btnConsultartnPesquisaCpfPaciente = new javax.swing.JButton();
         txtAvisoPaciente = new javax.swing.JTextField();
         ftxtCpfMedico = new javax.swing.JFormattedTextField();
         ftxtCpfPaciente = new javax.swing.JFormattedTextField();
@@ -85,14 +85,19 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
 
-        btnPesquisaCpfMedico.setText("...");
+        btnConsultarCpfMedico.setText("...");
+        btnConsultarCpfMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarCpfMedicoActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
 
         txtAvisoMedico.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        btnPesquisaCpfPaciente.setText("...");
+        btnConsultartnPesquisaCpfPaciente.setText("...");
 
         txtAvisoPaciente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -133,8 +138,8 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
                                     .addComponent(ftxtCpfMedico))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnPesquisaCpfMedico)
-                                    .addComponent(btnPesquisaCpfPaciente))
+                                    .addComponent(btnConsultarCpfMedico)
+                                    .addComponent(btnConsultartnPesquisaCpfPaciente))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtAvisoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,10 +181,10 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
                         .addGap(71, 71, 71)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtAvisoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPesquisaCpfMedico))
+                            .addComponent(btnConsultarCpfMedico))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPesquisaCpfPaciente)
+                            .addComponent(btnConsultartnPesquisaCpfPaciente)
                             .addComponent(txtAvisoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,48 +207,17 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConsultarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GuiMarcarConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GuiMarcarConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GuiMarcarConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GuiMarcarConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GuiMarcarConsulta().setVisible(true);
-            }
-        });
-    }
+    private void btnConsultarCpfMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarCpfMedicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultarCpfMedicoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnConsultarCpfMedico;
+    private javax.swing.JButton btnConsultartnPesquisaCpfPaciente;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnInserir;
-    private javax.swing.JButton btnPesquisaCpfMedico;
-    private javax.swing.JButton btnPesquisaCpfPaciente;
     private javax.swing.JButton btnSair;
     private javax.swing.JFormattedTextField ftxtCpfMedico;
     private javax.swing.JFormattedTextField ftxtCpfPaciente;
