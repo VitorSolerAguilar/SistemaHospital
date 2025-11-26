@@ -11,6 +11,7 @@ public class Consulta {
     private int codigo;
     private String data;
     private double valor;
+    
     private Medico medico;
     private List<Medicacao> medicacoes = new ArrayList<>();
     private List<Exame> exames = new ArrayList<>();
