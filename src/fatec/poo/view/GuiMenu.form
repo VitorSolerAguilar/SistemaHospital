@@ -7,7 +7,7 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="jMenuCadastro">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastro"/>
           </Properties>
@@ -35,7 +35,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="jMenuRegistro">
           <Properties>
             <Property name="text" type="java.lang.String" value="Registro"/>
           </Properties>

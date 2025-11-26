@@ -28,11 +28,11 @@ public class GuiMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuCadastro = new javax.swing.JMenu();
         jMenuItemMedico = new javax.swing.JMenuItem();
         jMenuItemPaciente = new javax.swing.JMenuItem();
         jMenuItemSair = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuRegistro = new javax.swing.JMenu();
         jMenuItemMarcarConsulta = new javax.swing.JMenuItem();
         jMenuItemMarcarExame = new javax.swing.JMenuItem();
         jMenuItemPrescreverMedicacao = new javax.swing.JMenuItem();
@@ -42,7 +42,7 @@ public class GuiMenu extends javax.swing.JFrame {
 
         jMenuBar1.setToolTipText("");
 
-        jMenu1.setText("Cadastro");
+        jMenuCadastro.setText("Cadastro");
 
         jMenuItemMedico.setText("Medico");
         jMenuItemMedico.addActionListener(new java.awt.event.ActionListener() {
@@ -50,7 +50,7 @@ public class GuiMenu extends javax.swing.JFrame {
                 jMenuItemMedicoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemMedico);
+        jMenuCadastro.add(jMenuItemMedico);
 
         jMenuItemPaciente.setText("Paciente");
         jMenuItemPaciente.addActionListener(new java.awt.event.ActionListener() {
@@ -58,14 +58,14 @@ public class GuiMenu extends javax.swing.JFrame {
                 jMenuItemPacienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemPaciente);
+        jMenuCadastro.add(jMenuItemPaciente);
 
         jMenuItemSair.setText("Sair");
-        jMenu1.add(jMenuItemSair);
+        jMenuCadastro.add(jMenuItemSair);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuCadastro);
 
-        jMenu2.setText("Registro");
+        jMenuRegistro.setText("Registro");
 
         jMenuItemMarcarConsulta.setText("Marcar Consulta");
         jMenuItemMarcarConsulta.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +73,7 @@ public class GuiMenu extends javax.swing.JFrame {
                 jMenuItemMarcarConsultaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemMarcarConsulta);
+        jMenuRegistro.add(jMenuItemMarcarConsulta);
 
         jMenuItemMarcarExame.setText("Marcar Exame");
         jMenuItemMarcarExame.addActionListener(new java.awt.event.ActionListener() {
@@ -81,7 +81,7 @@ public class GuiMenu extends javax.swing.JFrame {
                 jMenuItemMarcarExameActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemMarcarExame);
+        jMenuRegistro.add(jMenuItemMarcarExame);
 
         jMenuItemPrescreverMedicacao.setText("Prescrever Medicacao");
         jMenuItemPrescreverMedicacao.addActionListener(new java.awt.event.ActionListener() {
@@ -89,9 +89,9 @@ public class GuiMenu extends javax.swing.JFrame {
                 jMenuItemPrescreverMedicacaoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemPrescreverMedicacao);
+        jMenuRegistro.add(jMenuItemPrescreverMedicacao);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuRegistro);
 
         setJMenuBar(jMenuBar1);
 
@@ -175,14 +175,14 @@ public class GuiMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCadastro;
     private javax.swing.JMenuItem jMenuItemMarcarConsulta;
     private javax.swing.JMenuItem jMenuItemMarcarExame;
     private javax.swing.JMenuItem jMenuItemMedico;
     private javax.swing.JMenuItem jMenuItemPaciente;
     private javax.swing.JMenuItem jMenuItemPrescreverMedicacao;
     private javax.swing.JMenuItem jMenuItemSair;
+    private javax.swing.JMenu jMenuRegistro;
     // End of variables declaration//GEN-END:variables
 }
