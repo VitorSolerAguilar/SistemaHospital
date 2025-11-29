@@ -43,7 +43,7 @@ public class daoMedico {
     public void excluir(Medico medico) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM tblMedico WHERE cpf = ?");
+            ps = conn.prepareStatement("DELETE FROM tblMedico WHERE CPF = ?");
             ps.setString(1, medico.getCpf());
             ps.execute();
         } catch (SQLException ex) {
@@ -55,7 +55,7 @@ public class daoMedico {
         PreparedStatement ps = null;
         try {
         ps = conn.prepareStatement(
-            "UPDATE tblMedico SET nome = ?, endereco = ?, telefone = ?, crm = ?, especialidade = ? WHERE cpf = ?"
+            "UPDATE tblMedico SET nome = ?, endereco = ?, telefone = ?, crm = ?, especialidade = ? WHERE CPF = ?"
         );
 
         ps.setString(1, medico.getNome());
@@ -76,7 +76,7 @@ public class daoMedico {
         PreparedStatement ps = null;
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM tblMedico WHERE cpf = ?");
+            ps = conn.prepareStatement("SELECT * FROM tblMedico WHERE CPF = ?");
             ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
 
