@@ -75,6 +75,11 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Endereço");
 
@@ -90,9 +95,19 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
@@ -222,6 +237,41 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
 
         daoPaciente.inserir(p);
     }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        daoPaciente.excluir(objPaciente);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        String cpf = txtCpf.getText();
+        objPaciente = daoPaciente.consultar(cpf);
+
+        DateTimeFormatter formatoExibicao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        txtNome.setText(objPaciente.getNome());
+        txtEndereco.setText(objPaciente.getEndereco());
+        txtTelefone.setText(objPaciente.getTelefone());
+        txtDataNascimento.setText(objPaciente.getDataNascimento().format(formatoExibicao));
+        txtAltura.setText(String.valueOf(objPaciente.getAltura()));
+        txtPeso.setText(String.valueOf(objPaciente.getPeso()));
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        String cpf = txtCpf.getText();
+        
+                DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String textoDataLimpo = txtDataNascimento.getText().trim();
+        LocalDate dataNascimento = LocalDate.parse(textoDataLimpo, formatoData);
+
+        Paciente p = new Paciente(dataNascimento, txtCpf.getText(), txtNome.getText());
+        
+        p.setEndereco(txtEndereco.getText());
+        p.setTelefone(txtTelefone.getText());
+        p.setAltura(Double.parseDouble(txtAltura.getText()));
+        p.setPeso(Double.parseDouble(txtPeso.getText()));
+        
+        daoPaciente.alterar(p);
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
