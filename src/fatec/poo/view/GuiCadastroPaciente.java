@@ -227,14 +227,14 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
         DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String textoDataLimpo = txtDataNascimento.getText().trim();
         LocalDate dataNascimento = LocalDate.parse(textoDataLimpo, formatoData);
-
+        
         Paciente p = new Paciente(dataNascimento, txtCpf.getText(), txtNome.getText());
-
+        
         p.setEndereco(txtEndereco.getText());
         p.setTelefone(txtTelefone.getText());
         p.setAltura(Double.parseDouble(txtAltura.getText()));
         p.setPeso(Double.parseDouble(txtPeso.getText()));
-
+        
         daoPaciente.inserir(p);
     }//GEN-LAST:event_btnInserirActionPerformed
 
@@ -245,9 +245,9 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         String cpf = txtCpf.getText();
         objPaciente = daoPaciente.consultar(cpf);
-
+        
         DateTimeFormatter formatoExibicao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+        
         txtNome.setText(objPaciente.getNome());
         txtEndereco.setText(objPaciente.getEndereco());
         txtTelefone.setText(objPaciente.getTelefone());
@@ -259,10 +259,10 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         String cpf = txtCpf.getText();
         
-                DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String textoDataLimpo = txtDataNascimento.getText().trim();
         LocalDate dataNascimento = LocalDate.parse(textoDataLimpo, formatoData);
-
+        
         Paciente p = new Paciente(dataNascimento, txtCpf.getText(), txtNome.getText());
         
         p.setEndereco(txtEndereco.getText());
