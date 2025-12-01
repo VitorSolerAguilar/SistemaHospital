@@ -8,9 +8,11 @@ package fatec.poo.view;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.control.daoPaciente;
 import fatec.poo.model.Paciente;
+import fatec.poo.model.Pessoa;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -114,6 +116,11 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Data Nascimento");
 
@@ -247,6 +254,11 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         String cpf = txtCpf.getText();
+
+        if (!Pessoa.validarCPF(cpf)) {
+            JOptionPane.showMessageDialog(this, "CPF do paciente inválido!");
+            return;
+        }
         objPaciente = daoPaciente.consultar(cpf);
 
         DateTimeFormatter formatoExibicao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -296,6 +308,10 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         prepCon.fecharConexao();
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

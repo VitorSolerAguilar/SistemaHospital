@@ -10,7 +10,7 @@ import java.time.LocalDate;
     public class Consulta {
 
         private int codigo;
-        private LocalDate data;
+        private String data;
         private double valor;
 
         private Medico medico;
@@ -18,7 +18,7 @@ import java.time.LocalDate;
         private List<Medicacao> medicacoes = new ArrayList<>();
         private List<Exame> exames = new ArrayList<>();
 
-        public Consulta(int codigo, LocalDate data) {
+        public Consulta(int codigo, String data) {
             this.codigo = codigo;
             this.data = data;
         }
@@ -51,7 +51,7 @@ import java.time.LocalDate;
             return paciente;
         }
 
-        public LocalDate getData() {
+        public String getData() {
             return data;
         }
 
@@ -67,7 +67,7 @@ import java.time.LocalDate;
             return medicacoes;
         }
 
-    public void setData(LocalDate data) {
+    public void setData(String data) {
         this.data = data;
     }
 

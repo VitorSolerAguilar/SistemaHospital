@@ -32,7 +32,7 @@ public class daoConsulta {
         try {
             ps = conn.prepareStatement("INSERT INTO tblConsulta(codigo, dtConsulta, valor, cpfMedico, cpfPaciente) VALUES(?,?,?,?,?)");
             ps.setInt(1, consulta.getCodigo());
-            ps.setDate(2, java.sql.Date.valueOf(consulta.getData()));
+            ps.setString(2, consulta.getData());
             ps.setDouble(3, consulta.getValor());
             ps.setString(4, consulta.getMedico().getCpf());
             ps.setString(5, consulta.getPaciente().getCpf());
@@ -64,8 +64,8 @@ public class daoConsulta {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                java.sql.Date dataSql = rs.getDate("dtConsulta");
-                LocalDate data = dataSql.toLocalDate();
+
+                String data = rs.getString("dtConsulta");
                 double valor = rs.getDouble("valor");
                 String cpfMedico = rs.getString("cpfMedico");
                 String cpfPaciente = rs.getString("cpfPaciente");
@@ -85,6 +85,7 @@ public class daoConsulta {
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
+
         return c;
     }
 
@@ -92,10 +93,9 @@ public class daoConsulta {
         PreparedStatement ps = null;
 
         try {
-            ps = conn.prepareStatement("UPDATE tblConsulta SET dtConsulta = ?, valor = ?, cpfMedico = ?, cpfPaciente = ? " + "WHERE codigo = ?");
+            ps = conn.prepareStatement("UPDATE tblConsulta SET dtConsulta = ?, valor = ?, cpfMedico = ?, cpfPaciente = ? WHERE codigo = ?");
 
-            java.sql.Date dataSql = java.sql.Date.valueOf(consulta.getData());
-            ps.setDate(1, dataSql);
+            ps.setString(1, consulta.getData());
             ps.setDouble(2, consulta.getValor());
             ps.setString(3, consulta.getMedico().getCpf());
             ps.setString(4, consulta.getPaciente().getCpf());

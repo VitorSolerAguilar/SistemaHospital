@@ -57,7 +57,7 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
         txtNomePaciente = new javax.swing.JTextField();
         txtCpfMedico = new javax.swing.JFormattedTextField();
         txtCpfPaciente = new javax.swing.JFormattedTextField();
-        txtData = new javax.swing.JTextField();
+        txtData = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Marcar Consulta");
@@ -150,7 +150,11 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        txtData.setToolTipText("");
+        try {
+            txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -257,11 +261,8 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         int codigo = Integer.parseInt(txtCodigo.getText().trim());
+        String data = txtData.getText().trim();
         double valor = Double.parseDouble(txtValor.getText().trim());
-
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        LocalDate data = LocalDate.parse(txtData.getText().trim(), fmt);
 
         Consulta c = new Consulta(codigo, data);
         c.setValor(valor);
@@ -274,6 +275,11 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
 
     private void btnPesquisarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarMedicoActionPerformed
         String cpf = txtCpfMedico.getText();
+
+        if (!Pessoa.validarCPF(cpf)) {
+            JOptionPane.showMessageDialog(this, "CPF do médico inválido!");
+            return;
+        }
 
         objMedico = daoMedico.consultar(cpf);
 
@@ -293,6 +299,11 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
     private void btnPesquisarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarPacienteActionPerformed
         String cpf = txtCpfPaciente.getText();
 
+        if (!Pessoa.validarCPF(cpf)) {
+            JOptionPane.showMessageDialog(this, "CPF do médico inválido!");
+            return;
+        }
+
         objPaciente = daoPaciente.consultar(cpf);
 
         if (objPaciente == null) {
@@ -311,7 +322,6 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         daoConsulta.excluir(objConsulta);
 
-        // Limpar campos
         txtCodigo.setText("");
         txtCpfMedico.setText("");
         txtNomeMedico.setText("");
@@ -334,7 +344,12 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
         int codigo = Integer.parseInt(txtCodigo.getText().trim());
         objConsulta = daoConsulta.consultar(codigo);
 
-        txtData.setText(objConsulta.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        if (objConsulta == null) {
+            JOptionPane.showMessageDialog(this, "Consulta não encontrada.");
+            return;
+        }
+
+        txtData.setText(objConsulta.getData());
         txtValor.setText(String.valueOf(objConsulta.getValor()));
 
         objMedico = objConsulta.getMedico();
@@ -345,13 +360,25 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
 
         txtCpfPaciente.setText(objPaciente.getCpf());
         txtNomePaciente.setText(objPaciente.getNome());
+
+        txtCodigo.setEnabled(false);
+        txtCpfMedico.setEnabled(false);
+        btnPesquisarMedico.setEnabled(false);
+        txtCpfPaciente.setEnabled(false);
+        btnPesquisarPaciente.setEnabled(false);
+
+        txtData.setEnabled(true);
+        txtValor.setEnabled(true);
+
+        btnAlterar.setEnabled(true);
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+
         objConsulta.setValor(Double.parseDouble(txtValor.getText().trim()));
 
-        LocalDate novaData = LocalDate.parse(txtData.getText().trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        objConsulta.setData(novaData);
+        String data = txtData.getText().trim();
+        objConsulta.setData(data);
 
         objConsulta.setMedico(objMedico);
         objConsulta.setPaciente(objPaciente);
@@ -375,7 +402,7 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JFormattedTextField txtCpfMedico;
     private javax.swing.JFormattedTextField txtCpfPaciente;
-    private javax.swing.JTextField txtData;
+    private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtNomeMedico;
     private javax.swing.JTextField txtNomePaciente;
     private javax.swing.JTextField txtValor;
@@ -383,12 +410,11 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
     private Medico objMedico = null;
     private Paciente objPaciente = null;
     private Consulta objConsulta = null;
-    
-     private daoConsulta daoConsulta = null;    
+
+    private daoConsulta daoConsulta = null;
     private daoMedico daoMedico = null;
     private daoPaciente daoPaciente = null;
-    
+
     private PreparaConexao prepCon = null;
-   
 
 }

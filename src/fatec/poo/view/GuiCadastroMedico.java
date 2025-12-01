@@ -8,6 +8,8 @@ package fatec.poo.view;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.control.daoMedico;
 import fatec.poo.model.Medico;
+import fatec.poo.model.Pessoa;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -238,6 +240,11 @@ public class GuiCadastroMedico extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         String cpf = ftxtCpf.getText();
+
+        if (!Pessoa.validarCPF(cpf)) {
+            JOptionPane.showMessageDialog(this, "CPF do médico inválido!");
+            return;
+        }
         objMedico = daoMedico.consultar(cpf);
 
         if (objMedico == null) {
