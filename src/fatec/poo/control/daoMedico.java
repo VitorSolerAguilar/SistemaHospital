@@ -54,9 +54,7 @@ public class daoMedico {
     public void alterar(Medico medico) {
         PreparedStatement ps = null;
         try {
-        ps = conn.prepareStatement(
-            "UPDATE tblMedico SET nome = ?, endereco = ?, telefone = ?, crm = ?, especialidade = ? WHERE CPF = ?"
-        );
+        ps = conn.prepareStatement("UPDATE tblMedico SET nome = ?, endereco = ?, telefone = ?, crm = ?, especialidade = ? WHERE CPF = ?");
 
         ps.setString(1, medico.getNome());
         ps.setString(2, medico.getEndereco());

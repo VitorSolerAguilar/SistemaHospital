@@ -9,6 +9,10 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosed"/>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -41,19 +45,19 @@
                           <Component id="txtValor" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="ftxtCpfPaciente" alignment="0" pref="136" max="32767" attributes="0"/>
-                                  <Component id="ftxtData" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="ftxtCpfMedico" max="32767" attributes="0"/>
+                                  <Component id="txtData" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtCpfPaciente" alignment="0" pref="136" max="32767" attributes="0"/>
+                                  <Component id="txtCpfMedico" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnConsultarCpfMedico" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnConsultartnPesquisaCpfPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnPesquisarMedico" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnPesquisarPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtAvisoMedico" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <Component id="txtAvisoPaciente" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                                  <Component id="txtNomeMedico" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                                  <Component id="txtNomePaciente" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -87,33 +91,33 @@
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="ftxtCpfMedico" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCpfMedico" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="ftxtCpfPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCpfPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="ftxtData" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtData" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="txtAvisoMedico" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnConsultarCpfMedico" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNomeMedico" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnPesquisarMedico" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnConsultartnPesquisaCpfPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtAvisoPaciente" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnPesquisarPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNomePaciente" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="txtValor" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -139,6 +143,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -183,13 +190,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Inserir"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="ftxtData">
-      <Properties>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-          <Format format="##/##/####  " subtype="-1" type="5"/>
-        </Property>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInserirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtValor">
     </Component>
@@ -202,13 +205,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Alterar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnConsultarCpfMedico">
+    <Component class="javax.swing.JButton" name="btnPesquisarMedico">
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsultarCpfMedicoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarMedicoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnExcluir">
@@ -218,8 +224,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtAvisoMedico">
+    <Component class="javax.swing.JTextField" name="txtNomeMedico">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -228,12 +237,15 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnConsultartnPesquisaCpfPaciente">
+    <Component class="javax.swing.JButton" name="btnPesquisarPaciente">
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarPacienteActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtAvisoPaciente">
+    <Component class="javax.swing.JTextField" name="txtNomePaciente">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -242,18 +254,23 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="ftxtCpfMedico">
+    <Component class="javax.swing.JFormattedTextField" name="txtCpfMedico">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="###.###.###-## " subtype="-1" type="5"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="ftxtCpfPaciente">
+    <Component class="javax.swing.JFormattedTextField" name="txtCpfPaciente">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="###.###.###-## " subtype="-1" type="5"/>
         </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtData">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
   </SubComponents>

@@ -53,6 +53,9 @@ public class GuiCadastroMedico extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro Médico");
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -254,12 +257,7 @@ public class GuiCadastroMedico extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         String cpf = ftxtCpf.getText();
 
-        Medico m = new Medico(
-                cpf,
-                txtNome.getText(),
-                txtCrm.getText(),
-                cbxEspecialidade.getSelectedItem().toString()
-        );
+        Medico m = new Medico(cpf, txtNome.getText(), txtCrm.getText(), cbxEspecialidade.getSelectedItem().toString());
 
         m.setEndereco(txtEndereco.getText());
         m.setTelefone(txtTelefone.getText());
@@ -278,6 +276,10 @@ public class GuiCadastroMedico extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        prepCon.fecharConexao();
+    }//GEN-LAST:event_formWindowClosed
 
     private void estadoInicial() {
         ftxtCpf.setEnabled(true);
