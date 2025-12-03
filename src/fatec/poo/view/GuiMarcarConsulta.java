@@ -249,7 +249,7 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         prepCon = new PreparaConexao("", ""); //Usuário e senha                            
         prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        prepCon.setConnectionString("jdbc:ucanaccess://D:\\SistemaHospital\\src\\fatec\\poo\\basededados\\BDHospital.accdb");
+        prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\lucas\\Documents\\Java_Netbeans\\SistemaHospital\\src\\fatec\\poo\\basededados\\BDHospital.accdb");
         daoConsulta = new daoConsulta(prepCon.abrirConexao());
         daoMedico = new daoMedico(prepCon.abrirConexao());
         daoPaciente = new daoPaciente(prepCon.abrirConexao());

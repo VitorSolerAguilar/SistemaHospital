@@ -10,10 +10,28 @@ public class Exame {
     private String data;
     private String horario;
     private double valor;
+    private int codigoConsulta;
+    private Consulta consulta;
 
     public Exame(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
+    }
+
+    public void setCodigoConsulta(int codigoConsulta) {
+        this.codigoConsulta = codigoConsulta;
+    }
+
+    public int getCodigoConsulta() {
+        return codigoConsulta;
+    }
+    
+    public void setConsulta(Consulta consulta) {
+        this.consulta = consulta;
+    }
+
+    public Consulta getConsulta() {
+        return consulta;
     }
 
     public void setData(String data) {
@@ -26,6 +44,10 @@ public class Exame {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public int getCodigo() {

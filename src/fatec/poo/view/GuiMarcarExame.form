@@ -9,6 +9,10 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosed"/>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -49,7 +53,7 @@
                               <EmptySpace pref="24" max="32767" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="txtMeedico" min="-2" pref="168" max="-2" attributes="0"/>
+                              <Component id="txtMedico" min="-2" pref="168" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -91,7 +95,7 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtCodigoConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtMeedico" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtMedico" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnPesquisaCodigoConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -128,7 +132,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="txtMeedico">
+    <Component class="javax.swing.JTextField" name="txtMedico">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -163,6 +167,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Inserir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInserirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -178,6 +185,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Alterar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnExcluir">
       <Properties>
@@ -186,6 +196,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCodigoConsulta">
     </Component>
@@ -196,6 +209,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDescricao">
     </Component>
@@ -229,6 +245,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisaCodigoConsultaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

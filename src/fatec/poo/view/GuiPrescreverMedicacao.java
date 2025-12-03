@@ -5,7 +5,12 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.PreparaConexao;
+import fatec.poo.control.daoConsulta;
+import fatec.poo.control.daoMedico;
+import fatec.poo.model.Consulta;
 import fatec.poo.model.Medicacao;
+import fatec.poo.model.Medico;
 
 /**
  *
@@ -181,5 +186,11 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtQuantidadeDias;
     // End of variables declaration//GEN-END:variables
-    private Medicacao objPrescMedic;
+    private Medicacao medicacao;
+    private PreparaConexao prepCon;
+    private Consulta objConsulta;
+    private Medico objMedico;
+
+    private daoConsulta daoConsulta;
+    private daoMedico daoMedico;
 }
