@@ -7,10 +7,12 @@ package fatec.poo.view;
 
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.control.daoConsulta;
+import fatec.poo.control.daoMedicacao;
 import fatec.poo.control.daoMedico;
 import fatec.poo.model.Consulta;
 import fatec.poo.model.Medicacao;
 import fatec.poo.model.Medico;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,9 +55,22 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Prescrever Medicação");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nome");
 
@@ -75,14 +90,34 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnConsultarCodigoConsulta.setText("...");
+        btnConsultarCodigoConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarCodigoConsultaActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         txtMedico.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -165,8 +200,132 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
+        String nome = txtNome.getText().trim();
+        medicacao = daoMedicacao.consultar(nome);
+
+        if (medicacao == null) {
+            txtCodigoConsulta.setEnabled(true);
+            btnConsultarCodigoConsulta.setEnabled(true);
+
+            btnInserir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+
+            txtDosagem.setText("");
+            txtQuantidadeDias.setText("");
+            txtMedico.setText("");
+        } else {
+            txtDosagem.setText(medicacao.getDosagem());
+            txtQuantidadeDias.setText(String.valueOf(medicacao.getQtdeDias()));
+
+            int codConsulta = medicacao.getCodigoConsulta();
+            Consulta c = daoConsulta.consultar(codConsulta);
+
+            if (c != null) {
+                txtCodigoConsulta.setText(String.valueOf(codConsulta));
+                txtMedico.setText(c.getMedico().getNome());
+            }
+
+            txtCodigoConsulta.setEnabled(false);
+            btnConsultarCodigoConsulta.setEnabled(false);
+
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+        }
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        prepCon.fecharConexao();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        prepCon = new PreparaConexao("", ""); //Usuário e senha                            
+        prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\lucas\\Documents\\Java_Netbeans\\SistemaHospital\\src\\fatec\\poo\\basededados\\BDHospital.accdb");
+        daoConsulta = new daoConsulta(prepCon.abrirConexao());
+        daoMedico = new daoMedico(prepCon.abrirConexao());
+        daoMedicacao = new daoMedicacao(prepCon.abrirConexao());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        medicacao = new Medicacao(txtNome.getText().trim());
+        medicacao.setDosagem(txtDosagem.getText().trim());
+        medicacao.setQtdeDias(Integer.parseInt(txtQuantidadeDias.getText().trim()));
+        medicacao.setCodigoConsulta(Integer.parseInt(txtCodigoConsulta.getText().trim()));
+
+        daoMedicacao.inserir(medicacao);
+
+        txtCodigoConsulta.setEnabled(false);
+        btnConsultarCodigoConsulta.setEnabled(false);
+
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
+
+        JOptionPane.showMessageDialog(null, "Medicação inserida com sucesso!");
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0) {
+            daoMedicacao.excluir(medicacao.getNome());
+
+            txtNome.setText("");
+            txtDosagem.setText("");
+            txtQuantidadeDias.setText("");
+            txtCodigoConsulta.setText("");
+            txtMedico.setText("");
+
+            txtCodigoConsulta.setEnabled(true);
+            btnConsultarCodigoConsulta.setEnabled(true);
+
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
+            medicacao.setDosagem(txtDosagem.getText().trim());
+            medicacao.setQtdeDias(Integer.parseInt(txtQuantidadeDias.getText().trim()));
+            medicacao.setCodigoConsulta(Integer.parseInt(txtCodigoConsulta.getText().trim()));
+
+            daoMedicacao.alterar(medicacao);
+
+            txtNome.setText("");
+            txtDosagem.setText("");
+            txtQuantidadeDias.setText("");
+            txtCodigoConsulta.setText("");
+            txtMedico.setText("");
+
+            txtCodigoConsulta.setEnabled(true);
+            btnConsultarCodigoConsulta.setEnabled(true);
+
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnConsultarCodigoConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarCodigoConsultaActionPerformed
+        int codigo = Integer.parseInt(txtCodigoConsulta.getText().trim());
+        Consulta c = daoConsulta.consultar(codigo);
+        if (c == null) {
+            JOptionPane.showMessageDialog(null, "Consulta não cadastrada");
+            txtMedico.setText("");
+        } else {
+            txtMedico.setText(c.getMedico().getNome());
+            txtCodigoConsulta.setEnabled(false);
+            btnConsultarCodigoConsulta.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnConsultarCodigoConsultaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -193,4 +352,5 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
 
     private daoConsulta daoConsulta;
     private daoMedico daoMedico;
+    private daoMedicacao daoMedicacao;
 }

@@ -15,9 +15,10 @@ public class Medicacao {
     private String dosagem;
     private String descricao;
     private int qtdeDias;
+    private int codigoConsulta;
 
-    public Medicacao(String descricao) {
-        this.descricao = descricao;
+    public Medicacao(String nome) {
+        this.nome = nome;
     }
 
     public void setDosagem(String dosagem) {
@@ -42,6 +43,14 @@ public class Medicacao {
 
     public String getDescricao() {
         return descricao;
+    }
+
+    public void setCodigoConsulta(int codigoConsulta) {
+        this.codigoConsulta = codigoConsulta;
+    }
+
+    public int getCodigoConsulta() {
+        return codigoConsulta;
     }
 
 }
