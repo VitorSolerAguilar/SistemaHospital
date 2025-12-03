@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author lucas
+ * @author vitor
  */
 public class GuiMarcarConsulta extends javax.swing.JFrame {
 
@@ -151,7 +151,7 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
         }
 
         try {
-            txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####  ")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -260,21 +260,32 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        int codigo = Integer.parseInt(txtCodigo.getText().trim());
-        String data = txtData.getText().trim();
-        double valor = Double.parseDouble(txtValor.getText().trim());
+        if (objMedico == null || objPaciente == null) {
+            JOptionPane.showMessageDialog(this, "Selecione médico e paciente antes de inserir.");
+            return;
+        }
 
-        Consulta c = new Consulta(codigo, data);
-        c.setValor(valor);
-        c.setMedico(objMedico);
-        c.setPaciente(objPaciente);
+        try {
+            int codigo = Integer.parseInt(txtCodigo.getText().trim());
+            String data = txtData.getText().trim();
+            double valor = Double.parseDouble(txtValor.getText().trim());
 
-        daoConsulta.inserir(c);
+            objConsulta = new Consulta(codigo, data);
+            objConsulta.setMedico(objMedico);
+            objConsulta.setPaciente(objPaciente);
+            objConsulta.setValor(valor);
 
+            daoConsulta.inserir(objConsulta);
+            JOptionPane.showMessageDialog(this, "Consulta inserida com sucesso!");
+
+            estadoInicial();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Código ou valor inválido!");
+        }
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnPesquisarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarMedicoActionPerformed
-        String cpf = txtCpfMedico.getText();
+        String cpf = txtCpfMedico.getText().trim();
 
         if (!Pessoa.validarCPF(cpf)) {
             JOptionPane.showMessageDialog(this, "CPF do médico inválido!");
@@ -284,56 +295,62 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
         objMedico = daoMedico.consultar(cpf);
 
         if (objMedico == null) {
+            JOptionPane.showMessageDialog(this, "Médico não cadastrado!");
             txtNomeMedico.setText("");
-        } else {
-            txtNomeMedico.setText(objMedico.getNome());
-
-            txtCpfMedico.setEnabled(false);
-            btnPesquisarMedico.setEnabled(false);
-
-            txtCpfPaciente.setEnabled(true);
-            btnPesquisarPaciente.setEnabled(true);
+            return;
         }
+
+        txtNomeMedico.setText(objMedico.getNome());
+        txtCpfMedico.setEnabled(false);
+        btnPesquisarMedico.setEnabled(false);
+
+        txtCpfPaciente.setEnabled(true);
+        btnPesquisarPaciente.setEnabled(true);
+        txtCpfPaciente.requestFocus();
     }//GEN-LAST:event_btnPesquisarMedicoActionPerformed
 
     private void btnPesquisarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarPacienteActionPerformed
-        String cpf = txtCpfPaciente.getText();
+        String cpf = txtCpfPaciente.getText().trim();
 
         if (!Pessoa.validarCPF(cpf)) {
-            JOptionPane.showMessageDialog(this, "CPF do médico inválido!");
+            JOptionPane.showMessageDialog(this, "CPF do paciente inválido!");
             return;
         }
 
         objPaciente = daoPaciente.consultar(cpf);
 
         if (objPaciente == null) {
+            JOptionPane.showMessageDialog(this, "Paciente não cadastrado!");
             txtNomePaciente.setText("");
-        } else {
-            txtNomePaciente.setText(objPaciente.getNome());
-
-            txtCpfPaciente.setEnabled(false);
-            btnPesquisarPaciente.setEnabled(false);
-
-            txtData.setEnabled(true);
-            txtValor.setEnabled(true);
+            return;
         }
+
+        txtNomePaciente.setText(objPaciente.getNome());
+        txtCpfPaciente.setEnabled(false);
+        btnPesquisarPaciente.setEnabled(false);
+
+        txtData.setEnabled(true);
+        txtValor.setEnabled(true);
+        btnInserir.setEnabled(true);
+        txtData.requestFocus();
     }//GEN-LAST:event_btnPesquisarPacienteActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        daoConsulta.excluir(objConsulta);
+        if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0) {
+            daoConsulta.excluir(objConsulta);
 
-        txtCodigo.setText("");
-        txtCpfMedico.setText("");
-        txtNomeMedico.setText("");
-        txtCpfPaciente.setText("");
-        txtNomePaciente.setText("");
-        txtData.setText("");
-        txtValor.setText("");
+            txtCodigo.setText("");
+            txtCpfMedico.setText("");
+            txtNomeMedico.setText("");
+            txtCpfPaciente.setText("");
+            txtNomePaciente.setText("");
+            txtData.setText("");
+            txtValor.setText("");
 
-        objConsulta = null;
-        objMedico = null;
-        objPaciente = null;
-
+            objConsulta = null;
+            objMedico = null;
+            objPaciente = null;
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -371,21 +388,54 @@ public class GuiMarcarConsulta extends javax.swing.JFrame {
         txtValor.setEnabled(true);
 
         btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
+            objConsulta.setValor(Double.parseDouble(txtValor.getText().trim()));
 
-        objConsulta.setValor(Double.parseDouble(txtValor.getText().trim()));
+            String data = txtData.getText().trim();
+            objConsulta.setData(data);
 
-        String data = txtData.getText().trim();
-        objConsulta.setData(data);
+            objConsulta.setMedico(objMedico);
+            objConsulta.setPaciente(objPaciente);
 
-        objConsulta.setMedico(objMedico);
-        objConsulta.setPaciente(objPaciente);
-
-        daoConsulta.alterar(objConsulta);
+            daoConsulta.alterar(objConsulta);
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
+    private void estadoInicial() {
+        txtCodigo.setEnabled(true);
+        txtCpfMedico.setEnabled(false);
+        btnPesquisarMedico.setEnabled(false);
+        txtCpfPaciente.setEnabled(false);
+        btnPesquisarPaciente.setEnabled(false);
+        txtData.setEnabled(false);
+        txtValor.setEnabled(false);
 
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+
+        txtCodigo.setText("");
+        txtCpfMedico.setText("");
+        txtNomeMedico.setText("");
+        txtCpfPaciente.setText("");
+        txtNomePaciente.setText("");
+        txtData.setText("");
+        txtValor.setText("");
+
+        objConsulta = null;
+        objMedico = null;
+        objPaciente = null;
+    }
+
+    private void habilitarCpfMedico() {
+        txtCodigo.setEnabled(false);
+        txtCpfMedico.setEnabled(true);
+        btnPesquisarMedico.setEnabled(true);
+        txtCpfMedico.requestFocus();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnConsultar;

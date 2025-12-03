@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author lucas
+ * @author vitor
  */
 public class GuiCadastroPaciente extends javax.swing.JFrame {
 
@@ -231,78 +231,70 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
         prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
         prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\lucas\\Documents\\Java_Netbeans\\SistemaHospital\\src\\fatec\\poo\\basededados\\BDHospital.accdb");
         daoPaciente = new daoPaciente(prepCon.abrirConexao());
+        estadoInicial();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String textoDataLimpo = txtDataNascimento.getText().trim();
-        LocalDate dataNascimento = LocalDate.parse(textoDataLimpo, formatoData);
+       DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataNascimento = LocalDate.parse(txtDataNascimento.getText().trim(), formatoData);
 
         Paciente p = new Paciente(dataNascimento, txtCpf.getText(), txtNome.getText());
-
         p.setEndereco(txtEndereco.getText());
         p.setTelefone(txtTelefone.getText());
         p.setAltura(Double.parseDouble(txtAltura.getText()));
         p.setPeso(Double.parseDouble(txtPeso.getText()));
 
         daoPaciente.inserir(p);
+        estadoInicial();
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        daoPaciente.excluir(objPaciente);
+        if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0) {
+            daoPaciente.excluir(objPaciente);
+            estadoInicial();
+        }                                    
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        String cpf = txtCpf.getText();
+        String cpf = txtCpf.getText().trim();
 
         if (!Pessoa.validarCPF(cpf)) {
             JOptionPane.showMessageDialog(this, "CPF do paciente inválido!");
             return;
         }
+
         objPaciente = daoPaciente.consultar(cpf);
 
-        DateTimeFormatter formatoExibicao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        if (objPaciente == null) {
+            estadoAposConsultarNaoEncontrado();
+        } else {
+            DateTimeFormatter formatoExibicao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        txtCpf.setEnabled(false);
-        btnConsultar.setEnabled(false);
+            txtNome.setText(objPaciente.getNome());
+            txtEndereco.setText(objPaciente.getEndereco());
+            txtTelefone.setText(objPaciente.getTelefone());
+            txtDataNascimento.setText(objPaciente.getDataNascimento().format(formatoExibicao));
+            txtAltura.setText(String.valueOf(objPaciente.getAltura()));
+            txtPeso.setText(String.valueOf(objPaciente.getPeso()));
 
-        txtNome.setEnabled(true);
-        txtEndereco.setEnabled(true);
-        txtTelefone.setEnabled(true);
-        txtDataNascimento.setEnabled(true);
-        txtAltura.setEnabled(true);
-        txtPeso.setEnabled(true);
-
-        btnInserir.setEnabled(true);
-
-        btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
-
-        txtNome.setText(objPaciente.getNome());
-        txtEndereco.setText(objPaciente.getEndereco());
-        txtTelefone.setText(objPaciente.getTelefone());
-        txtDataNascimento.setText(objPaciente.getDataNascimento().format(formatoExibicao));
-        txtAltura.setText(String.valueOf(objPaciente.getAltura()));
-        txtPeso.setText(String.valueOf(objPaciente.getPeso()));
-
-
+            estadoAposConsultarEncontrado();
+        }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        String cpf = txtCpf.getText();
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
+            DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dataNascimento = LocalDate.parse(txtDataNascimento.getText().trim(), formatoData);
 
-        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String textoDataLimpo = txtDataNascimento.getText().trim();
-        LocalDate dataNascimento = LocalDate.parse(textoDataLimpo, formatoData);
+            Paciente p = new Paciente(dataNascimento, txtCpf.getText(), txtNome.getText());
+            p.setEndereco(txtEndereco.getText());
+            p.setTelefone(txtTelefone.getText());
+            p.setAltura(Double.parseDouble(txtAltura.getText()));
+            p.setPeso(Double.parseDouble(txtPeso.getText()));
 
-        Paciente p = new Paciente(dataNascimento, txtCpf.getText(), txtNome.getText());
-
-        p.setEndereco(txtEndereco.getText());
-        p.setTelefone(txtTelefone.getText());
-        p.setAltura(Double.parseDouble(txtAltura.getText()));
-        p.setPeso(Double.parseDouble(txtPeso.getText()));
-
-        daoPaciente.alterar(p);
+            daoPaciente.alterar(p);
+            estadoInicial();
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -312,6 +304,68 @@ public class GuiCadastroPaciente extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+    private void estadoInicial() {
+        txtCpf.setEnabled(true);
+        btnConsultar.setEnabled(true);
+
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtDataNascimento.setEnabled(false);
+        txtAltura.setEnabled(false);
+        txtPeso.setEnabled(false);
+
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+
+        txtCpf.setText("");
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        txtDataNascimento.setText("");
+        txtAltura.setText("");
+        txtPeso.setText("");
+    }
+
+    private void estadoAposConsultarEncontrado() {
+        txtCpf.setEnabled(false);
+
+        txtNome.setEnabled(true);
+        txtEndereco.setEnabled(true);
+        txtTelefone.setEnabled(true);
+        txtDataNascimento.setEnabled(true);
+        txtAltura.setEnabled(true);
+        txtPeso.setEnabled(true);
+
+        btnConsultar.setEnabled(false);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
+    }
+
+    private void estadoAposConsultarNaoEncontrado() {
+        txtCpf.setEnabled(false);
+
+        txtNome.setEnabled(true);
+        txtEndereco.setEnabled(true);
+        txtTelefone.setEnabled(true);
+        txtDataNascimento.setEnabled(true);
+        txtAltura.setEnabled(true);
+        txtPeso.setEnabled(true);
+
+        btnConsultar.setEnabled(false);
+        btnInserir.setEnabled(true);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        txtDataNascimento.setText("");
+        txtAltura.setText("");
+        txtPeso.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

@@ -8,12 +8,9 @@ package fatec.poo.view;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.control.daoConsulta;
 import fatec.poo.control.daoExame;
-import fatec.poo.control.daoMedico;
-import fatec.poo.control.daoPaciente;
 import fatec.poo.model.Consulta;
 import fatec.poo.model.Exame;
-import fatec.poo.model.Medico;
-import fatec.poo.model.Paciente;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -231,24 +228,7 @@ public class GuiMarcarExame extends javax.swing.JFrame {
         exame = daoExame.consultar(codigo);
 
         if (exame == null) {
-            txtCodigoConsulta.setEnabled(true);
-            btnPesquisaCodigoConsulta.setEnabled(true);
-
-            txtDescricao.setEnabled(false);
-            ftxtData.setEnabled(false);
-            txtHorario.setEnabled(false);
-            txtValor.setEnabled(false);
-
-            btnInserir.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-
-            txtDescricao.setText("");
-            ftxtData.setText("");
-            txtHorario.setText("");
-            txtValor.setText("");
-            txtMedico.setText("");
-
+            estadoAposConsultarNaoEncontrado();
         } else {
             txtDescricao.setText(exame.getDescricao());
             ftxtData.setText(exame.getData());
@@ -263,17 +243,7 @@ public class GuiMarcarExame extends javax.swing.JFrame {
                 txtMedico.setText(c.getMedico().getNome());
             }
 
-            txtCodigoConsulta.setEnabled(false);
-            btnPesquisaCodigoConsulta.setEnabled(false);
-
-            txtDescricao.setEnabled(true);
-            ftxtData.setEnabled(true);
-            txtHorario.setEnabled(true);
-            txtValor.setEnabled(true);
-
-            btnInserir.setEnabled(false);
-            btnAlterar.setEnabled(true);
-            btnExcluir.setEnabled(true);
+            estadoAposConsultarEncontrado();
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
@@ -290,6 +260,19 @@ public class GuiMarcarExame extends javax.swing.JFrame {
         exame.setValor(Double.parseDouble(txtValor.getText()));
 
         daoExame.inserir(exame, codigoConsulta);
+
+        txtCodigo.setEnabled(false);
+        txtCodigoConsulta.setEnabled(false);
+        btnPesquisaCodigoConsulta.setEnabled(false);
+
+        txtDescricao.setEnabled(true);
+        ftxtData.setEnabled(true);
+        txtHorario.setEnabled(true);
+        txtValor.setEnabled(true);
+
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -297,9 +280,8 @@ public class GuiMarcarExame extends javax.swing.JFrame {
         prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
         prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\lucas\\Documents\\Java_Netbeans\\SistemaHospital\\src\\fatec\\poo\\basededados\\BDHospital.accdb");
         daoConsulta = new daoConsulta(prepCon.abrirConexao());
-        daoMedico = new daoMedico(prepCon.abrirConexao());
-        daoPaciente = new daoPaciente(prepCon.abrirConexao());
         daoExame = new daoExame(prepCon.abrirConexao());
+        estadoInicial();
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -311,72 +293,53 @@ public class GuiMarcarExame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int codigo = Integer.parseInt(txtCodigo.getText());
+        if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0) {
+            int codigo = Integer.parseInt(txtCodigo.getText());
 
-        exame = daoExame.consultar(codigo);
+            exame = daoExame.consultar(codigo);
 
-        if (exame != null) {
-            daoExame.excluir(exame);
+            if (exame != null) {
+                daoExame.excluir(exame);
 
-            txtCodigo.setText("");
-            txtCodigoConsulta.setText("");
-            txtDescricao.setText("");
-            ftxtData.setText("");
-            txtHorario.setText("");
-            txtValor.setText("");
-            txtMedico.setText("");
-
-            txtCodigoConsulta.setEnabled(true);
-            btnPesquisaCodigoConsulta.setEnabled(true);
-
-            txtDescricao.setEnabled(false);
-            ftxtData.setEnabled(false);
-            txtHorario.setEnabled(false);
-            txtValor.setEnabled(false);
-
-            btnInserir.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-
-            javax.swing.JOptionPane.showMessageDialog(this, "Exame excluído com sucesso!");
+                estadoInicial();
+            }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        try {
-            exame.setDescricao(txtDescricao.getText());
-            exame.setData(ftxtData.getText());
-            exame.setHorario(txtHorario.getText());
-            exame.setValor(Double.parseDouble(txtValor.getText()));
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
+            try {
+                exame.setDescricao(txtDescricao.getText());
+                exame.setData(ftxtData.getText());
+                exame.setHorario(txtHorario.getText());
+                exame.setValor(Double.parseDouble(txtValor.getText()));
 
-            daoExame.alterar(exame);
+                daoExame.alterar(exame);
 
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Exame alterado com sucesso!");
+                txtCodigo.setText("");
+                txtCodigoConsulta.setText("");
+                txtDescricao.setText("");
+                ftxtData.setText("");
+                txtHorario.setText("");
+                txtValor.setText("");
+                txtMedico.setText("");
 
-            txtCodigo.setText("");
-            txtCodigoConsulta.setText("");
-            txtDescricao.setText("");
-            ftxtData.setText("");
-            txtHorario.setText("");
-            txtValor.setText("");
-            txtMedico.setText("");
+                txtCodigoConsulta.setEnabled(true);
+                btnPesquisaCodigoConsulta.setEnabled(true);
 
-            txtCodigoConsulta.setEnabled(true);
-            btnPesquisaCodigoConsulta.setEnabled(true);
+                txtDescricao.setEnabled(false);
+                ftxtData.setEnabled(false);
+                txtHorario.setEnabled(false);
+                txtValor.setEnabled(false);
 
-            txtDescricao.setEnabled(false);
-            ftxtData.setEnabled(false);
-            txtHorario.setEnabled(false);
-            txtValor.setEnabled(false);
+                btnInserir.setEnabled(true);
+                btnAlterar.setEnabled(false);
+                btnExcluir.setEnabled(false);
 
-            btnInserir.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Erro ao alterar exame: " + e.getMessage());
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Erro ao alterar exame: " + e.getMessage());
+            }
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
@@ -387,23 +350,92 @@ public class GuiMarcarExame extends javax.swing.JFrame {
             Consulta c = daoConsulta.consultar(codigoConsulta);
 
             if (c == null) {
-                javax.swing.JOptionPane.showMessageDialog(this,
-                        "Consulta não encontrada.");
+                JOptionPane.showMessageDialog(this, "Consulta não cadastrada.");
                 txtMedico.setText("");
                 return;
             }
 
-            if (c.getMedico() != null) {
-                txtMedico.setText(c.getMedico().getNome());
-            } else {
-                txtMedico.setText("Médico não encontrado");
-            }
+            txtMedico.setText(c.getMedico().getNome());
+            txtCodigoConsulta.setEnabled(false);
+            btnPesquisaCodigoConsulta.setEnabled(false);
+
+            txtDescricao.setEnabled(true);
+            ftxtData.setEnabled(true);
+            txtHorario.setEnabled(true);
+            txtValor.setEnabled(true);
+            btnInserir.setEnabled(true);
+
+            exame = new Exame(Integer.parseInt(txtCodigo.getText()), txtDescricao.getText());
+            exame.setCodigoConsulta(codigoConsulta);
 
         } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Erro ao pesquisar consulta: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro ao pesquisar consulta: " + e.getMessage());
         }
     }//GEN-LAST:event_btnPesquisaCodigoConsultaActionPerformed
+    private void estadoInicial() {
+        txtCodigo.setEnabled(true);
+        txtCodigoConsulta.setEnabled(true);
+        btnPesquisaCodigoConsulta.setEnabled(true);
+
+        txtDescricao.setEnabled(false);
+        ftxtData.setEnabled(false);
+        txtHorario.setEnabled(false);
+        txtValor.setEnabled(false);
+        txtMedico.setEnabled(false);
+
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+
+        txtCodigo.setText("");
+        txtCodigoConsulta.setText("");
+        txtDescricao.setText("");
+        ftxtData.setText("");
+        txtHorario.setText("");
+        txtValor.setText("");
+        txtMedico.setText("");
+    }
+
+    private void estadoAposConsultarEncontrado() {
+        txtCodigo.setEnabled(false);
+        txtCodigoConsulta.setEnabled(false);
+        btnPesquisaCodigoConsulta.setEnabled(false);
+
+        txtDescricao.setEnabled(true);
+        ftxtData.setEnabled(true);
+        txtHorario.setEnabled(true);
+        txtValor.setEnabled(true);
+        txtMedico.setEnabled(false);
+
+        btnConsultar.setEnabled(false);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
+    }
+
+    private void estadoAposConsultarNaoEncontrado() {
+        txtCodigo.setEnabled(true);
+        txtCodigoConsulta.setEnabled(true);
+        btnPesquisaCodigoConsulta.setEnabled(true);
+
+        txtDescricao.setEnabled(true);
+        ftxtData.setEnabled(true);
+        txtHorario.setEnabled(true);
+        txtValor.setEnabled(true);
+        txtMedico.setEnabled(false);
+
+        btnConsultar.setEnabled(false);
+        btnInserir.setEnabled(true);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+
+        txtDescricao.setText("");
+        ftxtData.setText("");
+        txtHorario.setText("");
+        txtValor.setText("");
+        txtMedico.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -430,13 +462,8 @@ public class GuiMarcarExame extends javax.swing.JFrame {
     private PreparaConexao prepCon;
 
     private Exame exame;
-    private Consulta consulta;
-    private Medico medico;
-    private Paciente paciente;
 
-    private daoPaciente daoPaciente;
     private daoConsulta daoConsulta;
-    private daoMedico daoMedico;
     private daoExame daoExame;
 
 }

@@ -8,10 +8,8 @@ package fatec.poo.view;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.control.daoConsulta;
 import fatec.poo.control.daoMedicacao;
-import fatec.poo.control.daoMedico;
 import fatec.poo.model.Consulta;
 import fatec.poo.model.Medicacao;
-import fatec.poo.model.Medico;
 import javax.swing.JOptionPane;
 
 /**
@@ -204,34 +202,18 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
         medicacao = daoMedicacao.consultar(nome);
 
         if (medicacao == null) {
-            txtCodigoConsulta.setEnabled(true);
-            btnConsultarCodigoConsulta.setEnabled(true);
-
-            btnInserir.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-
-            txtDosagem.setText("");
-            txtQuantidadeDias.setText("");
-            txtMedico.setText("");
+            estadoAposConsultarNaoEncontrado();
         } else {
             txtDosagem.setText(medicacao.getDosagem());
             txtQuantidadeDias.setText(String.valueOf(medicacao.getQtdeDias()));
 
-            int codConsulta = medicacao.getCodigoConsulta();
-            Consulta c = daoConsulta.consultar(codConsulta);
-
+            Consulta c = daoConsulta.consultar(medicacao.getCodigoConsulta());
             if (c != null) {
-                txtCodigoConsulta.setText(String.valueOf(codConsulta));
+                txtCodigoConsulta.setText(String.valueOf(c.getCodigo()));
                 txtMedico.setText(c.getMedico().getNome());
             }
 
-            txtCodigoConsulta.setEnabled(false);
-            btnConsultarCodigoConsulta.setEnabled(false);
-
-            btnInserir.setEnabled(false);
-            btnAlterar.setEnabled(true);
-            btnExcluir.setEnabled(true);
+            estadoAposConsultarEncontrado();
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
@@ -248,26 +230,35 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
         prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
         prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\lucas\\Documents\\Java_Netbeans\\SistemaHospital\\src\\fatec\\poo\\basededados\\BDHospital.accdb");
         daoConsulta = new daoConsulta(prepCon.abrirConexao());
-        daoMedico = new daoMedico(prepCon.abrirConexao());
         daoMedicacao = new daoMedicacao(prepCon.abrirConexao());
+        estadoInicial();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        medicacao = new Medicacao(txtNome.getText().trim());
         medicacao.setDosagem(txtDosagem.getText().trim());
         medicacao.setQtdeDias(Integer.parseInt(txtQuantidadeDias.getText().trim()));
-        medicacao.setCodigoConsulta(Integer.parseInt(txtCodigoConsulta.getText().trim()));
 
         daoMedicacao.inserir(medicacao);
 
+        JOptionPane.showMessageDialog(null, "Medicação inserida com sucesso!");
+
+        txtNome.setText("");
+        txtDosagem.setText("");
+        txtQuantidadeDias.setText("");
+        txtCodigoConsulta.setText("");
+        txtMedico.setText("");
+
+        txtNome.setEnabled(true);
         txtCodigoConsulta.setEnabled(false);
         btnConsultarCodigoConsulta.setEnabled(false);
 
-        btnInserir.setEnabled(false);
-        btnAlterar.setEnabled(true);
-        btnExcluir.setEnabled(true);
+        txtDosagem.setEnabled(false);
+        txtQuantidadeDias.setEnabled(false);
 
-        JOptionPane.showMessageDialog(null, "Medicação inserida com sucesso!");
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -294,9 +285,10 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
             medicacao.setDosagem(txtDosagem.getText().trim());
             medicacao.setQtdeDias(Integer.parseInt(txtQuantidadeDias.getText().trim()));
-            medicacao.setCodigoConsulta(Integer.parseInt(txtCodigoConsulta.getText().trim()));
 
             daoMedicacao.alterar(medicacao);
+
+            JOptionPane.showMessageDialog(null, "Medicação alterada com sucesso!");
 
             txtNome.setText("");
             txtDosagem.setText("");
@@ -304,8 +296,12 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
             txtCodigoConsulta.setText("");
             txtMedico.setText("");
 
-            txtCodigoConsulta.setEnabled(true);
-            btnConsultarCodigoConsulta.setEnabled(true);
+            txtNome.setEnabled(true);
+            txtCodigoConsulta.setEnabled(false);
+            btnConsultarCodigoConsulta.setEnabled(false);
+
+            txtDosagem.setEnabled(false);
+            txtQuantidadeDias.setEnabled(false);
 
             btnConsultar.setEnabled(true);
             btnInserir.setEnabled(false);
@@ -317,16 +313,69 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
     private void btnConsultarCodigoConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarCodigoConsultaActionPerformed
         int codigo = Integer.parseInt(txtCodigoConsulta.getText().trim());
         Consulta c = daoConsulta.consultar(codigo);
+
         if (c == null) {
             JOptionPane.showMessageDialog(null, "Consulta não cadastrada");
             txtMedico.setText("");
+            estadoInicial();
         } else {
             txtMedico.setText(c.getMedico().getNome());
             txtCodigoConsulta.setEnabled(false);
             btnConsultarCodigoConsulta.setEnabled(false);
+
+            txtDosagem.setEnabled(true);
+            txtQuantidadeDias.setEnabled(true);
+            btnInserir.setEnabled(true);
+
+            medicacao = new Medicacao(txtNome.getText().trim());
+            medicacao.setCodigoConsulta(c.getCodigo());
         }
     }//GEN-LAST:event_btnConsultarCodigoConsultaActionPerformed
 
+    private void estadoInicial() {
+        txtNome.setEnabled(true);
+        txtCodigoConsulta.setEnabled(true);
+        btnConsultarCodigoConsulta.setEnabled(true);
+
+        txtDosagem.setEnabled(false);
+        txtQuantidadeDias.setEnabled(false);
+        txtMedico.setEnabled(false);
+
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+    }
+
+    private void estadoAposConsultarEncontrado() {
+        txtNome.setEnabled(false);
+        txtCodigoConsulta.setEnabled(false);
+        btnConsultarCodigoConsulta.setEnabled(false);
+
+        txtDosagem.setEnabled(true);
+        txtQuantidadeDias.setEnabled(true);
+        txtMedico.setEnabled(false);
+
+        btnConsultar.setEnabled(false);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
+    }
+
+    private void estadoAposConsultarNaoEncontrado() {
+        txtNome.setEnabled(true);
+        txtCodigoConsulta.setEnabled(true);
+        btnConsultarCodigoConsulta.setEnabled(true);
+
+        txtDosagem.setEnabled(true);
+        txtQuantidadeDias.setEnabled(true);
+        txtMedico.setEnabled(false);
+
+        btnConsultar.setEnabled(false);
+        btnInserir.setEnabled(true);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnConsultar;
@@ -347,10 +396,7 @@ public class GuiPrescreverMedicacao extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private Medicacao medicacao;
     private PreparaConexao prepCon;
-    private Consulta objConsulta;
-    private Medico objMedico;
 
     private daoConsulta daoConsulta;
-    private daoMedico daoMedico;
     private daoMedicacao daoMedicacao;
 }

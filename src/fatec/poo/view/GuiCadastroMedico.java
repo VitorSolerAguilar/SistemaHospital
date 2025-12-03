@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author lucas
+ * @author vitor
  */
 public class GuiCadastroMedico extends javax.swing.JFrame {
 
@@ -143,11 +143,15 @@ public class GuiCadastroMedico extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtNome)
                                 .addComponent(txtEndereco, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(txtCrm, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel6)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(txtCrm, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel6))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(0, 0, Short.MAX_VALUE)))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(cbxEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -228,14 +232,16 @@ public class GuiCadastroMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        daoMedico.excluir(objMedico);
+        if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0) {
+            daoMedico.excluir(objMedico);
 
-        txtNome.setText("");
-        txtCrm.setText("");
-        txtEndereco.setText("");
-        txtTelefone.setText("");
+            txtNome.setText("");
+            txtCrm.setText("");
+            txtEndereco.setText("");
+            txtTelefone.setText("");
 
-        estadoInicial();
+            estadoInicial();
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
@@ -262,22 +268,24 @@ public class GuiCadastroMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        String cpf = ftxtCpf.getText();
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
+            String cpf = ftxtCpf.getText();
 
-        Medico m = new Medico(cpf, txtNome.getText(), txtCrm.getText(), cbxEspecialidade.getSelectedItem().toString());
+            Medico m = new Medico(cpf, txtNome.getText(), txtCrm.getText(), cbxEspecialidade.getSelectedItem().toString());
 
-        m.setEndereco(txtEndereco.getText());
-        m.setTelefone(txtTelefone.getText());
+            m.setEndereco(txtEndereco.getText());
+            m.setTelefone(txtTelefone.getText());
 
-        daoMedico.alterar(m);
+            daoMedico.alterar(m);
 
-        txtNome.setText("");
-        txtEndereco.setText("");
-        txtTelefone.setText("");
-        txtCrm.setText("");
-        ftxtCpf.setText("");
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtTelefone.setText("");
+            txtCrm.setText("");
+            ftxtCpf.setText("");
 
-        estadoInicial();
+            estadoInicial();
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
